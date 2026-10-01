@@ -14,20 +14,23 @@ let clockTimer = null;
 let toastTimer = null;
 let spokenEventKeys = new Set();
 
-function setConnection(connected, label = connected ? 'Connected' : 'Offline') {
+function setConnection(connected, label = connected ? 'Connected' : 'Offline') 
+{
   const node = document.querySelector('#connection-label');
   node.textContent = label;
   node.parentElement.classList.toggle('connected', connected);
 }
 
-function showToast(message) {
+function showToast(message) 
+{
   toast.textContent = message;
   toast.classList.add('visible');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.classList.remove('visible'), 6000);
 }
 
-function setRisk(risk, score) {
+function setRisk(risk, score) 
+{
   const badge = document.querySelector('#risk-badge');
   const ring = document.querySelector('#score-ring');
   const scoreLabel = document.querySelector('#score');
@@ -44,7 +47,8 @@ function setRisk(risk, score) {
   }[risk] || 'Waiting for camera measurements.';
 }
 
-function formatTime(timestamp) {
+function formatTime(timestamp) 
+{
   const date = new Date(timestamp);
   return Number.isNaN(date.getTime()) ? '--:--' : date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
