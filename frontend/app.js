@@ -47,35 +47,6 @@ function setRisk(risk, score)
   }[risk] || 'Waiting for camera measurements.';
 }
 
-function formatTime(timestamp) 
-{
-  const date = new Date(timestamp);
-  return Number.isNaN(date.getTime()) ? '--:--' : date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-}
-
-function renderEvents(events = []) {
-  const list = document.querySelector('#event-list');
-  document.querySelector('#event-count').textContent = `${events.length} EVENT${events.length === 1 ? '' : 'S'}`;
-  if (!events.length) {
-    list.innerHTML = '<li class="empty-event">No alerts this session</li>';
-    return;
-  }
-  list.replaceChildren(...events.slice(0, 9).map((event) => {
-    const item = document.createElement('li');
-    item.className = `event-item ${event.risk.toLowerCase()}`;
-    const copy = document.createElement('div');
-    copy.className = 'event-copy';
-    const title = document.createElement('strong');
-    title.textContent = `${event.risk} fatigue · ${event.score}`;
-    const message = document.createElement('p');
-    message.textContent = event.message;
-    const time = document.createElement('time');
-    time.textContent = formatTime(event.timestamp);
-    copy.append(title, message, time);
-    item.append(copy);
-    return item;
-  }));
-}
 
 function updateDashboard(state) {
   setRisk(state.risk || 'Calibrating', state.score || 0);
